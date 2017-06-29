@@ -1,0 +1,39 @@
+﻿@using SEOApp.Models
+@model SEOViewModel
+@{
+    ViewBag.Title = "SEOApp";
+}
+@Scripts.Render("~/bundles/index")
+<div class="container margin-top-30">
+    <div class="section">
+        @using (Ajax.BeginForm("InvokeResult", "Home", null, new AjaxOptions { HttpMethod = "GET", OnSuccess = "InvokeCallback" }, new { role = "form" }))
+        {
+            <div class="row">
+                <div class="col-sm-6">
+                    @Html.Label("Keywords")
+                    @Html.EditorFor(m => m.Keywords, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(m => m.Keywords, "", new { @class = "text-danger" })
+                </div>
+                <div class="col-sm-6">
+                    @Html.Label("Sight Url")
+                    @Html.EditorFor(m => m.SightUrl, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(m => m.SightUrl, "", new { @class = "text-danger" })
+                </div>
+            </div>
+            <div class="row col-sm-12">
+                <ul class="buttons margin-top-30">
+                    <li class="btn btn-warning btn-clear">Clear</li>
+                    <li class="btn btn-primary btn-invoke">Invoke<span id="timer"></span></li>
+                </ul>
+            </div>
+        }
+    </div>
+
+    <div class="result-section section">
+        <div class="row col-sm-12 margin-top-30">
+            <p><span id="searchResult"></span></p>
+            <p>Result retrieved at: <span id="resultTime"></span></p>
+        </div>
+    </div>
+</div>
+
